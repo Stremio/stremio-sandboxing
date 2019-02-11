@@ -20,3 +20,11 @@ can we limit the computing time?
 Using timeout seems nice in [runInContext](https://nodejs.org/api/vm.html#vm_script_runincontext_contextifiedsandbox_options)
 
 memory though is trickier
+
+
+## how to use 
+
+```
+( cd example/addonWithDeps && webpack . )
+node index
+```
