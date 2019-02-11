@@ -1,4 +1,5 @@
 // Simple proxy addon example
+const URL = 'https://v3-cinemeta.strem.io/manifest.json'
 module.exports = function({ fetch }) {
 	function manifest() {
 		return fetch(URL).then(r=>r.json())

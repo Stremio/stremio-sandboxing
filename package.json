@@ -23,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/Stremio/stremio-sandboxing/issues"
   },
-  "homepage": "https://github.com/Stremio/stremio-sandboxing#readme"
+  "homepage": "https://github.com/Stremio/stremio-sandboxing#readme",
+  "dependencies": {
+    "node-fetch": "^2.3.0"
+  }
 }
