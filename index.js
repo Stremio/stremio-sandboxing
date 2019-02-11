@@ -1,5 +1,6 @@
 const vm = require('vm')
 const Router = require('router')
+const qs = require('querystring')
 const makeSafeFetch = require('./safeFetch')
 
 // WARNING: This may throw!
@@ -39,11 +40,31 @@ function makeRouter(manifest, blob) {
 	// WARNING: this can throw
 	addonScript.runInContext(ctx, runOptions)
 	const mod = ctx.module.exports
+
+	const sendJSON = (res, body) => {
+		res.setHeader('Content-Type', 'application/json; charset=utf-8')
+		res.end(JSON.stringify(body))
+	}
 	
-	const router = Router()
+	const router = new Router()
 	router.get('/manifest.json', function(req, res, next) {
-		
+		Promise.resolve()
+		.then(() => mod.manifest())
+		.then(manifest => sendJSON(res, manifest))
+		.catch(next)
 	})
+	router.get('/:resource/:type/:id/:extra?.json', function(req, res, next) {
+		Promise.resolve()
+		.then(() => {
+			const args = [req.params.resource, req.params.type, req.params.id]
+				.concat(req.params.extra ? [qs.parse(req.params.extra)] : [])
+			return mod.get.apply(null, args)
+		})
+		.then(resp => sendJSON(res, resp))
+		.catch(next)
+	})
+
+	return router
 }
 
 // wrap in a promise, therefore catching any exceptions
