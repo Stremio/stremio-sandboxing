@@ -9,6 +9,7 @@ function manifest() {
 		description: 'Sandboxed much?',
 		catalogs: [{type: 'movie', id: 'animated'}],
 		resources: ['catalog'],
+		sandbox: { allowedHosts: ['v3-cinemeta.strem.io'] },
 	})
 }
 

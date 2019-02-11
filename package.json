@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/Stremio/stremio-sandboxing#readme",
   "dependencies": {
-    "node-fetch": "^2.3.0"
+    "node-fetch": "^2.3.0",
+    "router": "^1.3.3"
   }
 }
