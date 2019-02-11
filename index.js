@@ -1,7 +1,16 @@
+const vm = require('vm')
 const makeSafeFetch = require('./safeFetch')
-const exampleAddon = require('./example/proxyAddon')
 
 const deps = {
-	fetch: makeSafeFetch({ allowedHosts: [] }),
+	// @TODO storage
+	fetch: makeSafeFetch({
+		allowedHosts: ['v3-cinemeta.strem.io']
+	}),
 }
-exampleAddon(deps).manifest().then(m => console.log(m))
+
+const exampleAddonCode = require('fs').readFileSync('./example/proxyAddon.js').toString()
+
+vm.createContext(deps)
+vm.runInContext(exampleAddonCode, deps)
+
+deps.manifest().then(manifest => console.log(manifest))

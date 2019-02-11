@@ -7,8 +7,10 @@ function makeSafeFetch({ allowedHosts }) {
 	return function(input, init) {
 		// per spec, input can be a USVString or a Request
 		const request = new Request(input)
-		const parsed = url.parse(request.url)
-		//console.log(parsed.hostname)
+		const { hostname } = url.parse(request.url)
+		if (!allowedHosts.includes(hostname)) {
+			return Promise.reject(`disallowed hostname ${hostname}`)
+		}
 		return fetch(request, init)
 	}
 }
