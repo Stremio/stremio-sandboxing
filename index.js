@@ -16,8 +16,12 @@ const deps = {
 	}),
 }
 const ctx = vm.createContext({
-	// @TODO console, Buffer, interval/timeout stuff 
-	require: m => {
+	console, // @TODO think about this
+	Buffer,
+	setInterval, clearInterval,
+	setTimeout, clearTimeout,
+	setImmediate, clearImmediate,
+	sandbox_require: m => {
 		if (deps[m]) return deps[m]
 		else throw `cannot require ${m}`
 	},
@@ -25,7 +29,7 @@ const ctx = vm.createContext({
 	module: {},
 })
 
-const exampleAddonCode = require('fs').readFileSync('./example/proxyAddon.js').toString()
+const exampleAddonCode = require('fs').readFileSync('./example/addonWithDeps/dist/main.js').toString()
 
 const addonScript = new vm.Script(exampleAddonCode)
 
@@ -38,5 +42,9 @@ if (!isValid) {
 	// @TODO better diagnostics
 	console.log('invalid addon')
 } else {
-	mod.manifest().then(manifest => console.log(manifest))
+	// @TODO move this test code out
+	mod.manifest().then(manifest => {
+		const cat = manifest.catalogs[0]
+		mod.get('catalog', cat.type, cat.id).then(resp => console.log(resp))
+	})
 }

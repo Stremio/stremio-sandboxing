@@ -13,8 +13,10 @@ The current plan for the `transportUrl` is to make it: `stremio-sandbox://{url}`
 
 Keep in mind that the stremio-api can update addons for users, by changing the `AddonDescriptor`, so it can change the `transportUrl` altogether in order to update an addon.
 
-## computing time
+## computing time/memory
 
 can we limit the computing time?
 
 Using timeout seems nice in [runInContext](https://nodejs.org/api/vm.html#vm_script_runincontext_contextifiedsandbox_options)
+
+memory though is trickier

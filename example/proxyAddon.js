@@ -1,6 +1,6 @@
 // Simple proxy addon example
 const URL = 'https://v3-cinemeta.strem.io/manifest.json'
-const fetch = require('fetch')
+const fetch = sandbox_require('fetch')
 
 function manifest() {
 	return fetch(URL).then(r=>r.json())

@@ -1,4 +1,3 @@
-const fetch = sandbox_require('fetch')
 const animated = require('./animated')
 const isOdd = require('is-odd')
 
@@ -14,13 +13,15 @@ function manifest() {
 }
 
 function get(resource, type, id) {
+	const fetch = sandbox_require('fetch')
 	if (resource == 'catalog') {
 		const metas = animated.metas.map((m, i) => {
 			if (isOdd(i)) m.name = `odd: ${m.name}`
 			return m
 		})
+		return Promise.resolve({ metas })
 	} else {
-		Promise.reject('failed')
+		return Promise.reject('failed')
 	}
 	// @TODO should we test require-ing fs here, to show it's really sandboxed?
 }
