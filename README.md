@@ -16,3 +16,5 @@ Keep in mind that the stremio-api can update addons for users, by changing the `
 ## computing time
 
 can we limit the computing time?
+
+Using timeout seems nice in [runInContext](https://nodejs.org/api/vm.html#vm_script_runincontext_contextifiedsandbox_options)
