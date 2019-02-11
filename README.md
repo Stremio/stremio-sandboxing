@@ -25,6 +25,5 @@ memory though is trickier
 ## how to use 
 
 ```
-( cd example/addonWithDeps && webpack . )
-node index
+(cd example/addonWithDeps/ && webpack .) && node runExample.js
 ```
