@@ -11,6 +11,7 @@ const runOptions = {
 const deps = {
 	// @TODO storage
 	fetch: makeSafeFetch({
+		// @TODO this should depend on the previously negotiated manifest
 		allowedHosts: ['v3-cinemeta.strem.io']
 	}),
 }
@@ -18,19 +19,18 @@ const ctx = vm.createContext({
 	// @TODO console, Buffer, interval/timeout stuff 
 	require: m => {
 		if (deps[m]) return deps[m]
-		else throw 'cannot require'
+		else throw `cannot require ${m}`
 	},
+	// This is empty so the addon code can set .exports
 	module: {},
 })
-vm.createContext(deps)
 
 const exampleAddonCode = require('fs').readFileSync('./example/proxyAddon.js').toString()
 
-// @TODO see compileFunction
-// @TODO check if this one can throw if invalid code is passed
 const addonScript = new vm.Script(exampleAddonCode)
-//const addonScriptData = addonScript.createCachedData()
 
+// @TODO catch the error from runInContext
+// @TODO catch the case where the get() or manifest() does not return a Promise
 addonScript.runInContext(ctx, runOptions)
 const mod = ctx.module.exports
 const isValid = mod && typeof(mod.get) == 'function' && typeof(mod.manifest) == 'function'
