@@ -15,12 +15,15 @@ function manifest() {
 
 function get(resource, type, id) {
 	const fetch = sandbox_require('fetch')
-	if (resource == 'catalog') {
+	if (resource == 'catalog' && id == 'animated') {
 		const metas = animated.metas.map((m, i) => {
 			if (isOdd(i)) m.name = `odd: ${m.name}`
 			return m
 		})
 		return Promise.resolve({ metas })
+	} else if (resource == 'catalog') {
+		return fetch(`https://v3-cinemeta.strem.io/catalog/${type}/top.json`)
+		.then(r => r.json())
 	} else {
 		return Promise.reject('failed')
 	}
