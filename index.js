@@ -47,6 +47,8 @@ function makeRouter(manifest, blob) {
 	}
 	
 	const router = new Router()
+	// NOTE: Technically the manifest is not really needed, as usually we only use that kind of a route
+	// on detection (detectFromURL)
 	router.get('/manifest.json', function(req, res, next) {
 		Promise.resolve()
 		.then(() => mod.manifest())
