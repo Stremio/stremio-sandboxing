@@ -2,6 +2,7 @@
 
 A prototype for sandboxed addon
 
+Inspired by https://github.com/Stremio/labs/issues/15#issuecomment-462396058
 
 ## transportUrl design
 
