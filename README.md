@@ -23,7 +23,7 @@ Using timeout seems nice in [runInContext](https://nodejs.org/api/vm.html#vm_scr
 memory though is trickier
 
 
-## how to use 
+## how to use: run the example
 
 ```
 (cd example/addonWithDeps/ && webpack .) && node runExample.js
